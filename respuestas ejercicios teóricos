@@ -1,0 +1,22 @@
+12.2
+El comando
+	ps -elf | grep main | grep defunct | wc -l
+devuelve 10000 debido a que son 10000 procesos hijos Z. 
+Y son Z, porque el padre está "durmiendo" y no se le aplicó la función "wait()" para finalizar.
+
+¿Solucionó el problema observado en el Ejercicio anterior?.
+Hubo una mejora pero no una solución total. La cantidad de hijos Z no es cero. 
+Probándolo varias veces quedan aprox. un 40% de hijos Z.
+
+¿Puede evaluar a partir del resultado el comportamiento de las señales cuando se dirigen en forma masiva y cuasi simultánea a un mismo proceso?
+El handler recepciona algunas de todas las señales que le llegan de forma simultánea y masiva. No quedan en una cola.
+Si no ponemos un printf() en el handler la situación mejora. 
+Es por el tiempo que demora el handler en ejecutar el printf(). 
+Un handler más corto permite una respuesta a señales más veloz.
+
+12.3
+Como en el ejercicio anterior, el comando
+	ps -elf | grep main | grep defunct | wc -l
+devuelve 10000 debido a que son 10000 procesos hijos Z. 
+La diferencia es que hay una cola de hijos, pero no de señales.
+
